@@ -1,5 +1,3 @@
----
-
 ## **1. Identificação básica**
 
 **1.1 Título do experimento:**
@@ -30,8 +28,6 @@ EXP-RPA-LOG-001
 **1.7 Projeto / produto / iniciativa relacionada:**
 
 * Projeto de TCC de Engenharia de Software – Automatização de monitoramento e correção de logs de sistemas
-
----
 
 ## **2. Contexto e problema**
 
