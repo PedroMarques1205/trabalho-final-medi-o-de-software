@@ -61,4 +61,52 @@ O experimento propõe implementar um **robô de software** capaz de:
 * **Machine Learning básico:** classificação de logs e detecção de padrões de erro;
 * **Integração de sistemas via API:** uso de REST APIs para automação de chamados e notificações.
 
----
+# **3. Objetivos e questões (GQM)**
+
+## **3.1 Objetivo Geral (Template GQM)**
+
+**Analisar** o processo de monitoramento de logs **com o propósito de** avaliar a eficiência da automação via RPA **sob a perspectiva** dos times de suporte/DevOps **no contexto** de um ambiente acadêmico com logs simulados.
+
+## **3.2 Objetivos Específicos**
+
+**O1.** Reduzir o tempo gasto para identificar erros recorrentes em logs.
+**O2.** Automatizar a abertura de chamados quando erros forem detectados.
+**O3.** Validar a execução automática de scripts corretivos pelo bot.
+**O4.** Comparar o processo manual vs. automatizado em termos de tempo e precisão.
+
+## **3.3 Questões de Pesquisa / Negócio**
+
+**Q1.** O RPA reduz o tempo total de detecção e resposta a erros em logs?
+**Q2.** O bot consegue identificar corretamente erros recorrentes (com baixa taxa de falso positivo)?
+**Q3.** A automação melhora a eficiência do fluxo de abertura de chamados?
+**Q4.** A execução automática de scripts corretivos reduz a necessidade de intervenção humana?
+
+## **3.4 Métricas (GQM)**
+
+**M1 – Tempo de detecção:**
+
+* *Definição:* Tempo para identificar erro no log.
+* *Unidade:* Segundos.
+* *Fonte:* Logs do sistema + timestamp do bot.
+* *Relacionada a:* Q1.
+
+**M2 – Precisão da detecção:**
+
+* *Definição:* % de erros detectados corretamente pelo bot.
+* *Unidade:* Percentual.
+* *Fonte:* Conjunto de logs rotulados manualmente.
+* *Relacionada a:* Q2.
+
+**M3 – Tempo para abertura de chamado:**
+
+* *Definição:* Tempo entre detecção → criação do ticket.
+* *Unidade:* Segundos.
+* *Fonte:* API de chamados (Jira/ServiceNow).
+* *Relacionada a:* Q3.
+
+**M4 – Ações corretivas automatizadas:**
+
+* *Definição:* % de erros que o bot corrige sem intervenção humana.
+* *Unidade:* Percentual.
+* *Fonte:* Relatório do bot / logs de execução.
+* *Relacionada a:* Q4.
