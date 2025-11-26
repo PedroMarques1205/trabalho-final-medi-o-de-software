@@ -44,7 +44,7 @@ O experimento propõe implementar um **robô de software** capaz de:
 
 * **Ambiente de teste:** servidores de aplicação simulados, com geração de logs em tempo real;
 * **Ferramentas:** Python, Robot Framework, Power Automate / N8N, APIs REST (ex.: Jira, ServiceNow);
-* **Equipe:** 1–3 alunos de Engenharia de Software, atuando em laboratório acadêmico;
+* **Equipe:** 1 aluno de Engenharia de Software, atuando em laboratório acadêmico;
 * **Objetivo técnico:** avaliar a viabilidade de automatizar a análise e correção de logs em ambientes controlados antes de aplicar em sistemas reais.
 
 **2.3 Trabalhos e evidências prévias (internos e externos):**
@@ -61,52 +61,141 @@ O experimento propõe implementar um **robô de software** capaz de:
 * **Machine Learning básico:** classificação de logs e detecção de padrões de erro;
 * **Integração de sistemas via API:** uso de REST APIs para automação de chamados e notificações.
 
-# **3. Objetivos e questões (GQM)**
+# **3. Objetivos e questões (Goal / Question / Metric)**
 
-## **3.1 Objetivo Geral (Template GQM)**
+## **3.1 Objetivo geral (modelo GQM)**
 
-**Analisar** o processo de monitoramento de logs **com o propósito de** avaliar a eficiência da automação via RPA **sob a perspectiva** dos times de suporte/DevOps **no contexto** de um ambiente acadêmico com logs simulados.
+O experimento tem como objetivo **avaliar se a automação robótica (RPA)** é capaz de melhorar o processo, atualmente humana, de análise de logs, detecção de erros e acionamento de respostas, com a intenção de reduzir esforço manual e tempo de reação, sob a visão dos **operadores e equipe técnica**, dentri de um ambiente acadêmico controlado que tenta simular, da forma mais realista possível, situações de análise de logs e correção de erros em códigos fonte
+ 
 
-## **3.2 Objetivos Específicos**
+## **3.2 Objetivos específicos**
 
-**O1.** Reduzir o tempo gasto para identificar erros recorrentes em logs.
-**O2.** Automatizar a abertura de chamados quando erros forem detectados.
-**O3.** Validar a execução automática de scripts corretivos pelo bot.
-**O4.** Comparar o processo manual vs. automatizado em termos de tempo e precisão.
+**O1 — Detectar erros de forma mais rápida e consistente.**
+**O2 — Automatizar ações corretivas e abertura de chamados.**
+**O3 — Reduzir falhas humanas no processo de monitoramento.**
+**O4 — Avaliar estabilidade, capacidade e integração da automaçãp com sistemas externos.**
 
-## **3.3 Questões de Pesquisa / Negócio**
+ 
+## **3.3 Questões de pesquisa**
 
-**Q1.** O RPA reduz o tempo total de detecção e resposta a erros em logs?
-**Q2.** O bot consegue identificar corretamente erros recorrentes (com baixa taxa de falso positivo)?
-**Q3.** A automação melhora a eficiência do fluxo de abertura de chamados?
-**Q4.** A execução automática de scripts corretivos reduz a necessidade de intervenção humana?
+### **O1 — Detecção de erros**
 
-## **3.4 Métricas (GQM)**
+**Q1.1.** O robô desenvolvido é capaz de acha os erros mais rápido do que uma pessoa que tá lendo o log na mão?
+**Q1.2.** Ele consegue pegar erros críticos sem deixar passar detalhes técnicos?
+**Q1.3.** O tempo de detecção fica consistente mesmo quando os logs começam a aparecer mais rápido?
 
-**M1 – Tempo de detecção:**
 
-* *Definição:* Tempo para identificar erro no log.
-* *Unidade:* Segundos.
-* *Fonte:* Logs do sistema + timestamp do bot.
-* *Relacionada a:* Q1.
+### **O2 — Ações automatizadas**
 
-**M2 – Precisão da detecção:**
+**Q2.1.** A automação abre chamados mais rápido que o processo manual?
+**Q2.2.** O robô executa ações corretivas sem precisar ficar pedindo atenção humana?
+**Q2.3.** Quando o sistema tá mais carregado, o tempo de resposta da automação continua aceitável, ou gera gargalo?
 
-* *Definição:* % de erros detectados corretamente pelo bot.
-* *Unidade:* Percentual.
-* *Fonte:* Conjunto de logs rotulados manualmente.
-* *Relacionada a:* Q2.
 
-**M3 – Tempo para abertura de chamado:**
+### **O3 — Redução de falhas humanas**
 
-* *Definição:* Tempo entre detecção → criação do ticket.
-* *Unidade:* Segundos.
-* *Fonte:* API de chamados (Jira/ServiceNow).
-* *Relacionada a:* Q3.
+**Q3.1.** A automação evita erros de operador, como por exemplo esquecer de registrar um incidente?
+**Q3.2.** O robô ajuda a padronizar o processo, evitando interpretações diferentes entre operadores?
+**Q3.3.** A qualidade final dos registros de incidentes melhora com a automação?
 
-**M4 – Ações corretivas automatizadas:**
 
-* *Definição:* % de erros que o bot corrige sem intervenção humana.
-* *Unidade:* Percentual.
-* *Fonte:* Relatório do bot / logs de execução.
-* *Relacionada a:* Q4.
+### **O4 — Estabilidade e integração**
+
+**Q4.1.** O robô consegue rodar contínuamente sem travar?
+**Q4.2.** A integração com APIs (Jira, ServiceNow etc.) funciona corretamente com a automação?
+**Q4.3.** Em picos de log, o robô continua operando bem ou começa a derrapar?
+
+ 
+
+# **3.4 Tabela GQM — Objetivos, Perguntas e Métricas**
+
+| Objetivo | Pergunta | Métricas associadas                                                                   |
+|   -- |   -- |                             - |
+| **O1**   | Q1.1     | M1 – Tempo de detecção; M2 – Precisão de detecção                                     |
+| **O1**   | Q1.2     | M2 – Precisão de detecção; M3 – Taxa de falsos negativos                              |
+| **O1**   | Q1.3     | M1 – Tempo de detecção; M4 – Variação de desempenho                                   |
+| **O2**   | Q2.1     | M5 – Tempo para abrir chamado; M6 – Tempo total até ação                              |
+| **O2**   | Q2.2     | M7 – Taxa de ações automatizadas bem-sucedidas; M8 – Intervenções humanas necessárias |
+| **O2**   | Q2.3     | M6 – Tempo total até ação; M9 – Degradação em carga                                   |
+| **O3**   | Q3.1     | M10 – Erros humanos evitados; M11 – Conformidade com processo                         |
+| **O3**   | Q3.2     | M11 – Conformidade com processo; M12 – Padronização de registros                      |
+| **O3**   | Q3.3     | M12 – Padronização; M13 – Qualidade dos incidentes registrados                        |
+| **O4**   | Q4.1     | M14 – Estabilidade (crashes); M4 – Variação de desempenho                             |
+| **O4**   | Q4.2     | M15 – Sucesso de integração; M8 – Intervenções humanas                                |
+| **O4**   | Q4.3     | M4 – Variação de desempenho; M9 – Degradação em carga                                 |
+
+ 
+# **Tabela completa de métricas (descrição + unidade)**
+
+| Código  | Métrica                              | Descrição                                                 | Unidade               |
+|   - |              |                     |         |
+| **M1**  | Tempo de detecção                    | Tempo entre o erro ocorrer e o robô detectar              | segundos              |
+| **M2**  | Precisão de detecção                 | Percentual de erros detectados corretamente               | %                     |
+| **M3**  | Taxa de falsos negativos             | Erros que o robô deixou passar                            | % / quantidade        |
+| **M4**  | Variação de desempenho               | Mudança do tempo de detecção em diferentes cargas         | %                     |
+| **M5**  | Tempo para abrir chamado             | Tempo entre detecção e criação do ticket                  | segundos/minutos      |
+| **M6**  | Tempo total até ação                 | Tempo entre o erro ocorrer e a ação final                 | minutos               |
+| **M7**  | Sucesso das ações automatizadas      | Ações realizadas sem falha                                | %                     |
+| **M8**  | Intervenções humanas necessárias     | Quantidade de vezes que alguém teve que ajudar            | nº de ocorrências     |
+| **M9**  | Degradação em carga                  | Quanto o sistema piora em pico                            | % de aumento no tempo |
+| **M10** | Erros humanos evitados               | Diferença entre processo manual e automatizado            | nº                    |
+| **M11** | Conformidade com processo            | Aderência às regras do fluxo                              | %                     |
+| **M12** | Padronização de registros            | Avaliação qualitativa da consistência dos logs/incidentes | índice / nota         |
+| **M13** | Qualidade dos incidentes registrados | Clareza, completude e precisão                            | nota (1–5)            |
+| **M14** | Estabilidade do robô                 | Quantidade de travamentos e falhas                        | nº de eventos         |
+| **M15** | Sucesso de integração                | Taxa de respostas OK das APIs                             | %                     |
+
+ 
+
+# **4. Escopo e contexto do experimento**
+
+## **4.1 Escopo funcional / de processo**
+
+### **Incluído**
+
+* Coleta e análise automática de logs.
+* Classificação de erros (crítico, aviso, info…).
+* Abertura automática de chamados e/ou scripts corretivos.
+* Integração com APIs externas.
+* Testes de carga leve e moderada.
+* Avaliação de estabilidade da automação.
+
+### **Excluído**
+
+* Correções manuais complexas.
+* Logs reais de alta criticidade empresarial.
+* IA avançada para predição.
+* Segurança profunda.
+
+ 
+
+## **4.2 Contexto**
+
+Ambiente acadêmico, equipe pequena, simulação controlada, ferramentas acessíveis (Python, RPA, N8N etc.).
+Participantes com níveis diferentes de experiência — alguns ainda se atrapalhando um pouco, mas é normal.
+
+ 
+
+## **4.3 Premissas**
+
+* Ambiente funcionando (pela maior parte do tempo).
+* Geração regular de logs.
+* APIs externas disponíveis.
+* Acesso do robô garantido.
+
+ 
+
+## **4.4 Restrições**
+
+* Tempo curto para desenvolvimento.
+* Infra simples.
+* Pouca mão de obra.
+* Ferramentas limitadas.
+
+ 
+
+## **4.5 Limitações previstas**
+
+* Resultados podem não generalizar pra empresas enormes.
+* Amostra pequena.
+* Logs simulados não cobrem toda a realidade.
