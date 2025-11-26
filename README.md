@@ -6,7 +6,7 @@
 > O título reflete o foco do experimento: utilizar ferramentas de RPA para monitorar sistemas, identificar padrões de erro e automatizar ações corretivas, substituindo tarefas manuais repetitivas.
 
 **1.2 ID / código:**
-EXP-RPA-LOG-001
+ v1.1
 
 **1.3 Versão do documento e histórico de revisão:**
 
