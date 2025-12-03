@@ -463,10 +463,6 @@ Operadores de monitoramento e profissionais de operações/DevOps/SRE que realiz
 * **Comparações entre duas condições (within-subjects):** teste pareado t-test (se normal) ou Wilcoxon signed-rank (não paramétrico).
 * **Comparações entre grupos independentes (between-subjects):** t-test independente ou Mann-Whitney U.
 * **Comparações múltiplas (mais de 2 níveis, ex.: baixa/moderada/pico):** ANOVA de medidas repetidas (com correção de esfericidade) ou Friedman test (não paramétrico). Para between-subjects, ANOVA one-way ou Kruskal-Wallis.
-* **Modelos lineares (opcional):** regressão linear ou mixed-effects model para controlar experiência do participante como covariável e para modelar efeitos de carga e tratamento simultaneamente.
-* **Tamanho de efeito:** Cohen’s d para t-tests; η² ou ω² para ANOVA.
-* **Teste de proporções:** para métricas percentuais (M2, M7, M15) usar teste de proporção ou chi-square conforme aplicável.
-* **Correção para testes múltiplos:** Bonferroni ou FDR quando necessário.
 
 ## 12.3 Tratamento de dados faltantes e outliers
 
