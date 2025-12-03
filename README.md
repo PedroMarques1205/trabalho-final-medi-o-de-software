@@ -193,9 +193,297 @@ Participantes com níveis diferentes de experiência — alguns ainda se atrapal
 * Ferramentas limitadas.
 
  
-
 ## **4.5 Limitações previstas**
 
 * Resultados podem não generalizar pra empresas enormes.
 * Amostra pequena.
 * Logs simulados não cobrem toda a realidade.
+
+Aqui estão os tópicos organizados conforme solicitado:
+
+
+## **5. Stakeholders e impacto esperado**
+
+### **5.1 Stakeholders principais**
+
+* Operadores/analisadores de logs.
+* Equipe técnica acadêmica (orientadores/professores que avaliam a viabilidade do experimento).
+* Ferramentas/serviços externos integrados via API (ex.: plataformas de chamados como Jira, ServiceNow etc.).
+* Comunidade acadêmica interessada em automação de processos de TI.
+
+### **5.2 Interesses e expectativas dos stakeholders**
+
+* **Operadores/estudantes:** reduzir esforço manual, obter detecção mais rápida de erros e menos falhas de acompanhamento.
+* **Equipe técnica acadêmica:** evidências concretas sobre viabilidade, estabilidade e ganhos reais da automação antes da aplicação em ambientes reais.
+* **APIs externas:** validação de integração correta, volume de chamadas sustentado sem falhas relevantes.
+* **Comunidade acadêmica:** extração de insights e contribuição para estudos sobre automatização de operações de TI.
+
+### **5.3 Impactos potenciais no processo / produto**
+
+* Possível aceleração do fluxo de monitoramento e abertura de tickets.
+* Redução de variação e inconsistências no processo de detecção e registro.
+* Aumento da carga de requisições automatizadas às APIs externas durante testes.
+* Diminuição do esforço humano necessário por sessão de análise de log.
+* Nenhum impacto em produção, pois o ambiente é controlado e isolado.
+
+
+## **6. Riscos de alto nível, premissas e critérios de sucesso**
+
+### **6.1 Riscos de alto nível**
+
+* Indisponibilidade do ambiente de logs simulados.
+* APIs externas fora do ar durante os testes.
+* Desempenho do robô degradar excessivamente sob picos de logs.
+* Possível aumento de falsos negativos se o classificador for impreciso.
+* Limitações de tempo e infraestrutura restringirem a abrangência do experimento.
+
+### **6.2 Critérios de sucesso globais (go / no-go)**
+
+O experimento será considerado **go** se:
+
+* O robô detectar erros mais rápido que o processo manual com variação aceitável.
+* A precisão de detecção (M2) se mantiver alta com baixa taxa de falsos negativos (M3).
+* A automação abrir chamados e/ou executar scripts sem demandar intervenção frequente (M7 e M8).
+* A estabilidade (M14) e a integração com APIs (M15) se mantiverem funcionais mesmo em cargas moderadas.
+* O tempo total até ação (M6) for significativamente inferior ao manual sem gargalos críticos (M9).
+
+Será **no-go** se:
+
+* O robô tiver instabilidade recorrente, baixa precisão ou gargalos críticos que invalidem a viabilidade da automação proposta.
+
+### **6.3 Critérios de parada antecipada**
+
+O experimento deve ser **adiado/cancelado antes de começar** se:
+
+* O ambiente de logs não estiver operacional.
+* APIs externas necessárias para integração estiverem indisponíveis.
+* Faltarem recursos mínimos para instrumentação das métricas.
+* O contexto do problema mudar drasticamente antes da execução.
+
+
+## **7. Modelo conceitual e hipóteses**
+
+### **7.1 Modelo conceitual do experimento**
+
+Acredita-se que:
+
+* A aplicação de **RPA + classificadores automatizados** reduz o tempo de detecção (M1) e aumenta a precisão (M2) em comparação ao processo manual, com menor variação e erros operacionais.
+* A automação elimina atrasos dependentes de humanos e padroniza registros, o que melhora a qualidade dos incidentes (M13) e reduz falhas humanas (M10).
+* Sob picos, espera-se que o desempenho degrade menos que o manual, mas pode haver algum aumento moderado no tempo (M9), que deve se manter dentro de limites aceitáveis.
+
+### **7.2 Hipóteses formais**
+
+| Objetivo focado              | Hipótese nula (H0)                              | Hipótese alternativa (H1 – direção esperada)                                                  |
+| ---------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Detecção (O1)                | O tempo e precisão do robô são iguais ao manual | O robô detecta *mais rápido* e *com maior precisão* que o manual                              |
+| Ações (O2)                   | A automação não reduz tempo nem intervenções    | A automação reduz o tempo de abertura/ação e requer *menos intervenção humana*                |
+| Falhas humanas (O3)          | O número de falhas evitadas é insignificante    | A automação evita *mais falhas humanas* e aumenta a padronização/qualidade                    |
+| Integração/estabilidade (O4) | O robô não sustenta cargas sem falhas           | O robô opera de forma *estável* e com *alta taxa de sucesso de integração* sob carga moderada |
+
+### **7.3 Nível de significância e considerações de poder**
+
+* **Nível de significância:** α = 0,05 (5%).
+* **Poder estatístico:** esperado moderado, pois a amostra é pequena (laboratório acadêmico), mas suficiente para avaliar viabilidade inicial (não para generalização industrial).
+* **Atenuação:** poderá ser analisada a variação de desempenho intra-sessões para compensar o baixo N amostral.
+
+## **8. Variáveis, fatores, tratamentos e objetos de estudo**
+
+### **8.1 Objetos de estudo**
+
+* Arquivos de log simulados em servidores acadêmicos.
+* Classificador/robô que identifica erros e dispara respostas.
+* Chamadas realizadas a APIs externas de criação de tickets ou scripts corretivos.
+* Sessões de análise comparativa (manual vs automatizada).
+
+### **8.2 Sujeitos / Participantes (visão geral)**
+
+* Estudantes/participantes simulando operadores de logs (incluindo o autor como executor do experimento).
+* Níveis heterogêneos de experiência, característica que será usada como variável de controle.
+
+### **8.3 Variáveis independentes (fatores) e níveis**
+
+| Fator (Variável Independente) | Níveis                                                           |
+| ----------------------------- | ---------------------------------------------------------------- |
+| Forma de análise              | Manual / Automatizada                                            |
+| Velocidade de geração de logs | Baixa / Moderada / Pico (simulado)                               |
+| Integração com API            | Ativada / Desativada (quando aplicável a testes de carga locais) |
+
+### **8.4 Tratamentos (condições experimentais)**
+
+1. **Controle:** análise manual de logs por pessoas em diferentes cargas.
+2. **T1:** robô coletando e classificando logs, sem integração com APIs.
+3. **T2:** robô completo (detecção + abertura de tickets/scripts) integrado via API.
+4. **T3 (cenário de carga):** T1 e T2 rodando em logs de baixa, moderada e alta velocidade para observar M4, M9 e M14.
+
+### **8.5 Variáveis dependentes (respostas)**
+
+| Variável Dependente                  | Métrica vinculada |
+| ------------------------------------ | ----------------- |
+| Tempo de detecção                    | M1                |
+| Precisão da detecção                 | M2, M3, M4        |
+| Tempo de abertura/ação               | M5, M6            |
+| Necessidade de ajuda humana          | M8                |
+| Taxa de sucesso da automação         | M7, M15           |
+| Estabilidade operacional             | M14               |
+| Qualidade/padronização dos registros | M12, M13          |
+
+### **8.6 Variáveis de controle / bloqueio**
+
+* Experiência do operador (monitorada e distribuída entre sessões).
+* Infraestrutura e tipo de servidor (mantidos constantes).
+* Formato dos logs (fixo no experimento).
+* Lógica de priorização (fixa por versão testada).
+
+### **8.7 Possíveis variáveis de confusão conhecidas**
+
+* Motivação e ritmo de leitura do humano no manual.
+* Cobertura da simulação não refletir 100% de casos reais.
+* APIs externas sofrerem latência variável na internet.
+* Limitações de hardware do laboratório influenciarem picos extremos.
+
+
+## **9. Desenho experimental**
+
+### **9.1 Tipo de desenho**
+
+* **Completamente randomizado com blocos simples**
+  (blocos = nível de experiência; tratamentos = manual vs automação T1/T2 em diferentes cargas).
+
+### **9.2 Randomização e alocação**
+
+* Será randomizado: **ordem das sessões, distribuição de logs entre cargas e tratamento manual vs automatizado T1/T2 (quando houver humanos em comparações).**
+* A randomização prática será feita via scripts de ordem aleatória e revezamento das condições por sessão, garantindo misturas de carga e tratamento.
+
+### **9.3 Balanceamento e contrabalanço**
+
+* **Balanceamento:** logs e sessões distribuídos de forma equivalente para cada carga e condição.
+* **Contrabalanço:** o humano não analisará sempre primeiro nem sempre o mesmo volume em picos, evitando viés de aprendizagem/cansaço entre sessões.
+
+### **9.4 Número de grupos e sessões**
+
+* **Grupos:** 1 grupo de operadores manuais (simulado por humanos), 1 robô em T1, 1 robô em T2.
+* **Sessões por condição:** mínimo 6 a 9 rodadas no total, alternando carga e tratamento.
+
+ # 10. População, sujeitos e amostragem
+
+## 10.1 População-alvo
+
+Operadores de monitoramento e profissionais de operações/DevOps/SRE que realizam análise de logs e respondem a incidentes em equipes de produto (times de médio porte) — em contexto prático representado por estudantes e técnicos de laboratório para fins de validação acadêmica.
+
+## 10.2 Critérios de inclusão de sujeitos
+
+* Ter experiência mínima com leitura de logs (p. ex. já ter executado troubleshooting em aplicações ou servidores).
+* Idade ≥ 18 anos.
+* Disponibilidade para participar de todas as sessões do experimento (tempo total estimado por sujeito: ~2–3 horas, incluindo treinamentos e entrevistas).
+* Consentimento escrito informado (ter assinado termo de consentimento).
+
+## 10.3 Critérios de exclusão de sujeitos
+
+* Conflito de interesse direto (p. ex. pessoa envolvida no desenvolvimento do robô que vai avaliar).
+* Falta de conhecimentos básicos necessários para as tarefas (por exemplo, nunca ter lido logs).
+* Restrições legais ou éticas (recusa em assinar consentimento).
+* Condição que impeça cumprimento do protocolo (falta de disponibilidade nas datas).
+
+## 10.4 Tamanho da amostra planejado (por grupo)
+
+* **Planejado (prático/acadêmico):** 12–18 participantes no total.
+
+  * Se for desenho *within-subjects* (mesmos sujeitos fazem manual e automatizado): **n = 12–18** participantes.
+  * Se for desenho *between-subjects* (grupos separados): dividir em **2 grupos** com **6–9** participantes cada.
+* **Justificativa:** limite imposto por recursos laboratoriais; amostra relativamente pequena adequada para estudo de viabilidade e estimação de efeito inicial. Espera-se potência moderada; resultados servirão para estimar variância e planejar estudo maior posterior.
+
+## 10.5 Método de seleção / recrutamento
+
+* Amostra de conveniência: convocação entre estudantes da disciplina, monitores de laboratório e voluntários do departamento.
+* Complementarmente, convite via e-mail para técnicos do laboratório (se disponível).
+* Registrar motivos de recusa para avaliar viés de seleção.
+
+## 10.6 Treinamento e preparação dos sujeitos
+
+* Sessão de nivelamento (~45–60 min) cobrindo: objetivo do estudo, leitura rápida de logs (formato usado), uso do ambiente de teste, instruções para tarefas manuais e checklist do que registrar.
+* Material entregue por escrito: manual rápido (1–2 páginas), roteiro da sessão, formulário de contato para dúvidas.
+* Teste prático curto (5–10 min) para confirmar compreensão; se necessário, repetir trecho do treinamento.
+
+# 11. Instrumentação e protocolo operacional
+
+## 11.1 Instrumentos de coleta
+
+* **Gerador de logs controlado** (scripts que emitem eventos em diferentes taxas e padrões): fonte primária de estímulos.
+* **Robô/automação (versões T1/T2)** instrumentado para coletar métricas internas (timestamp de recebimento, decisão, ações, respostas API).
+* **Sistema de coleta de métricas central** (script/serviço que grava M1..M15 em banco de dados/CSV).
+* **Formulários pré/per/post-experimento** (questionários eletrônicos): perfil do participante, percepção de workload (NASA-TLX curto), satisfação, qualidade percebida dos registros.
+* **Planilha de observação/registro do experimento** (researcher log) para anotações de eventos imprevistos.
+* **Screen recording / video opcional** (com consentimento) para auditoria de comportamento humano durante tarefas manuais.
+* **Logs das APIs externas** (respostas HTTP, latência) para auditoria de integração.
+* **Questionário semiestruturado de entrevista** para opinião qualitativa pós-sessão.
+
+## 11.2 Materiais de suporte (instruções, guias)
+
+* Instrução passo-a-passo em PDF para participantes (cenario, tarefas, critérios de sucesso).
+* Guia do experimentador (checklist de preparação do ambiente, sequência de passos a executar, backup).
+* Fichas rápidas de decisão (o que fazer em caso de falha técnica, cancelamento de rodada).
+* Script de consentimento e formulário de coleta de dados pessoais (anônimos quando possível).
+
+## 11.3 Procedimento experimental (protocolo – visão passo a passo)
+
+1. **Convite e triagem:** confirmar elegibilidade e agendar.
+2. **Consentimento informado:** ler e assinar; explicar anonimização.
+3. **Pré-questionário:** perfil, experiência, expectativa.
+4. **Treinamento:** 45–60 min (ver 10.6).
+5. **Sessão piloto curta (se aplicável):** testar ambiente com 1–2 runs (ver 11.4).
+6. **Execução – fase A (baseline manual):** participante analisa logs gerados por X minutos/rodadas; registra incidentes e tempo até identificação; experimentador registra métricas. Ordem das cargas randomizada.
+7. **Pausa breve (5–10 min).**
+8. **Execução – fase B (automação):** iniciar robô na condição correspondente (T1/T2); coletar métricas automáticas (detecção, ações, latência). Em desenho within-subjects alternar ordem (contrabalançar) para evitar ordem fixa.
+9. **Registro de eventos excepcionais:** anotar quedas, erros do robô, falhas de API.
+10. **Pós-questionário e entrevista semiestruturada:** avaliar percepção, qualidade dos registros, confiança na automação.
+11. **Despedida e compensação (se aplicável).**
+12. **Backup de dados:** exportar logs, planilhas e gravações para repositório seguro.
+
+## 11.4 Plano de piloto (escopo e critérios de ajuste)
+
+* **Piloto:** 2–3 participantes (preferencialmente com perfis distintos) antes das execuções formais.
+* **Objetivos:** validar gerador de logs, mensuração de tempos, clareza das instruções, infraestrutura de coleta (scripts, banco CSV).
+* **Critérios de ajuste:** corrigir falhas técnicas, ajustar templates de formulários, tempo por sessão, e clarificar instruções se ≥1 participante reportar confusão. Após piloto, registrar mudanças e reexecutar outro piloto rápido se mudanças forem substanciais.
+
+# 12. Plano de análise de dados (pré-execução)
+
+## 12.1 Estratégia geral de análise
+
+* **Quantitativa:** comparar métricas primárias (M1 M2 M5 M6 M7 M8 M14 M15) entre condições (manual vs automação; e entre níveis de carga). Responder às questões Q1.x–Q4.x relacionando cada métrica correspondente.
+
+  * Ex.: Para Q1.1 comparar M1 (tempo de detecção) entre manual e automatizado.
+* **Qualitativa:** analisar respostas abertas e entrevistas para entender causas de falsos positivos/negativos, confiança do usuário e sugestões de melhoria.
+* Fazer análises descritivas (médias, medianas, desvios, boxplots) e inferenciais (ver 12.2).
+* Reportar intervalos de confiança e tamanhos de efeito além de p-values.
+* Realizar análises de sensibilidade (com e sem outliers; com dados imputados vs exclusão) para verificar robustez.
+
+## 12.2 Métodos estatísticos planejados
+
+* **Verificações preliminares:** checar normalidade (Shapiro-Wilk) e homogeneidade de variância (Levene).
+* **Comparações entre duas condições (within-subjects):** teste pareado t-test (se normal) ou Wilcoxon signed-rank (não paramétrico).
+* **Comparações entre grupos independentes (between-subjects):** t-test independente ou Mann-Whitney U.
+* **Comparações múltiplas (mais de 2 níveis, ex.: baixa/moderada/pico):** ANOVA de medidas repetidas (com correção de esfericidade) ou Friedman test (não paramétrico). Para between-subjects, ANOVA one-way ou Kruskal-Wallis.
+* **Modelos lineares (opcional):** regressão linear ou mixed-effects model para controlar experiência do participante como covariável e para modelar efeitos de carga e tratamento simultaneamente.
+* **Tamanho de efeito:** Cohen’s d para t-tests; η² ou ω² para ANOVA.
+* **Teste de proporções:** para métricas percentuais (M2, M7, M15) usar teste de proporção ou chi-square conforme aplicável.
+* **Correção para testes múltiplos:** Bonferroni ou FDR quando necessário.
+
+## 12.3 Tratamento de dados faltantes e outliers
+
+* **Dados faltantes:**
+
+  * Se faltarem dados esporádicos (p. ex. um valor de tempo), usar **imputação simples** (mediana por condição) para análises descritivas e executar **análise de sensibilidade** com exclusão completa (listwise).
+  * Se participante tiver >20% das medidas principais faltando, excluir o participante das análises quantitativas principais e documentar motivos.
+* **Outliers:**
+
+  * Definir outliers com antecedência: valores além de **3 z-scores** da média ou fora de **1.5×IQR**.
+  * Analisar resultados com e sem outliers; reportar ambos e justificar qualquer exclusão. Não remover outliers automaticamente — só se houver evidência de erro de medição ou evento extraordinário não representativo (p. ex. falha técnica).
+
+## 12.4 Plano de análise para dados qualitativos
+
+* **Abordagem:** análise temática (thematic analysis).
+* **Etapas:** transcrever entrevistas; leitura exploratória; codificação inicial (open coding); agrupar códigos em categorias temáticas; revisar e definir temas finais.
+* **Confiabilidade:** pelo menos **2 codificadores** independentes codificarão uma amostra (20–30%) dos dados para medir **acordo inter-avaliador** (Cohen’s kappa). Em caso de divergência, discutir até consenso e refinar código.
+* **Apresentação:** extrair citações representativas (anonimizadas) para ilustrar temas; relacionar temas às métricas quantitativas (triangulação).
+
+
