@@ -426,18 +426,8 @@ Operadores de monitoramento e profissionais de operações/DevOps/SRE que realiz
 
 ## 11.3 Procedimento experimental (protocolo – visão passo a passo)
 
-1. **Convite e triagem:** confirmar elegibilidade e agendar.
-2. **Consentimento informado:** ler e assinar; explicar anonimização.
-3. **Pré-questionário:** perfil, experiência, expectativa.
-4. **Treinamento:** 45–60 min (ver 10.6).
-5. **Sessão piloto curta (se aplicável):** testar ambiente com 1–2 runs (ver 11.4).
-6. **Execução – fase A (baseline manual):** participante analisa logs gerados por X minutos/rodadas; registra incidentes e tempo até identificação; experimentador registra métricas. Ordem das cargas randomizada.
-7. **Pausa breve (5–10 min).**
-8. **Execução – fase B (automação):** iniciar robô na condição correspondente (T1/T2); coletar métricas automáticas (detecção, ações, latência). Em desenho within-subjects alternar ordem (contrabalançar) para evitar ordem fixa.
-9. **Registro de eventos excepcionais:** anotar quedas, erros do robô, falhas de API.
-10. **Pós-questionário e entrevista semiestruturada:** avaliar percepção, qualidade dos registros, confiança na automação.
-11. **Despedida e compensação (se aplicável).**
-12. **Backup de dados:** exportar logs, planilhas e gravações para repositório seguro.
+<img width="1024" height="768" alt="Colorful Minimal Process Step Flowchart Cycle Diagram" src="https://github.com/user-attachments/assets/485c184a-51ca-47fd-a152-6370d877276b" />
+
 
 ## 11.4 Plano de piloto (escopo e critérios de ajuste)
 
