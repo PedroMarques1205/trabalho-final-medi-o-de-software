@@ -837,3 +837,64 @@ Todos os templates estarão **versionados no Git** e disponíveis para download 
 
 2. **Dockerfile ou `requirements.txt`** para reproduzir ambiente de software exat
 
+# 19. Plano de comunicação
+
+## 19.1 Públicos e mensagens-chave pré-execução
+
+| Público | Mensagem principal |
+|---------|-------------------|
+| **Orientador** | O que vou fazer, quando, e como vou medir se deu certo |
+| **Coordenação do curso** | Preciso usar o lab e convidar colegas; vai ser entre janeiro e fevereiro |
+| **Participantes (colegas)** | Convite: ajudar no meu TCC testando um robô que analisa logs (2-3h, voluntário) |
+
+## 19.2 Canais e frequência de comunicação
+
+| Público | Canal | Quando |
+|---------|-------|--------|
+| **Orientador** | E-mail + reunião presencial | Toda sexta (e-mail) + 1x por semana (reunião) |
+| **Coordenação** | E-mail formal | Quando precisar pedir algo (lab, autorização) |
+| **Participantes** | WhatsApp/E-mail | 1 semana antes (convite) + 1 dia antes (lembrete) |
+
+## 19.3 Pontos de comunicação obrigatórios
+
+**Preciso avisar formalmente quando:**
+- O plano for aprovado pelo orientador
+- For fazer o piloto (testar antes de começar de verdade)
+- Tiver que mudar algo importante (datas, como vou fazer o experimento)
+- For começar a execução de verdade
+- Precisar adiar ou cancelar
+- Terminar e tiver os resultados
+
+# 20. Critérios de prontidão para execução (Definition of Ready)
+
+## 20.1 Checklist de prontidão
+
+**Só posso começar o experimento de verdade quando:**
+
+**Documentação:**
+- [ ] Plano de experimento escrito e revisado
+- [ ] TCLE (termo de consentimento) pronto
+- [ ] Manual de instruções para participantes pronto
+
+**Aprovações:**
+- [ ] Orientador aprovou o plano
+- [ ] Coordenação liberou uso do laboratório
+
+**Tecnologia:**
+- [ ] Robô funcionando (testado)
+- [ ] Gerador de logs funcionando
+- [ ] Computadores do lab disponíveis e testados
+
+**Pessoas:**
+- [ ] Pelo menos 12 pessoas confirmadas para participar
+- [ ] Datas agendadas com todo mundo
+
+**Piloto:**
+- [ ] Fiz o teste piloto com 2-3 pessoas
+- [ ] Corrigi os problemas que apareceram no piloto
+
+## 20.2 Aprovações finais para iniciar a operação
+
+**Para começar, preciso de "OK" de:**
+1. **Orientador** - confirmar que está tudo certo metodologicamente
+3. **Coordenação** - confirmar que posso usar o lab nas datas
