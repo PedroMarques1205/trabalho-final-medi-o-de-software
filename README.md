@@ -3,8 +3,6 @@
 **1.1 Título do experimento:**
 **Automação Robótica para Análise de Logs e Monitoramento de Sistemas**
 
-> O título reflete o foco do experimento: utilizar ferramentas de RPA para monitorar sistemas, identificar padrões de erro e automatizar ações corretivas, substituindo tarefas manuais repetitivas.
-
 **1.2 ID / código:**
  v1.1
 
