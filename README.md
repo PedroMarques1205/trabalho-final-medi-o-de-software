@@ -305,8 +305,8 @@ Acredita-se que:
 | Fator (Variável Independente) | Níveis                                                           |
 | ----------------------------- | ---------------------------------------------------------------- |
 | Forma de análise              | Manual / Automatizada                                            |
-| Velocidade de geração de logs | Baixa / Moderada / Pico (simulado)                               |
-| Integração com API            | Ativada / Desativada (quando aplicável a testes de carga locais) |
+| Velocidade de geração de logs | Baixa / Moderada / Pico                             |
+| Integração com API            | Ativada / Desativada|
 
 ### **8.4 Tratamentos (condições experimentais)**
 
@@ -322,7 +322,6 @@ Acredita-se que:
 | Tempo de detecção                    | M1                |
 | Precisão da detecção                 | M2, M3, M4        |
 | Tempo de abertura/ação               | M5, M6            |
-| Necessidade de ajuda humana          | M8                |
 | Taxa de sucesso da automação         | M7, M15           |
 | Estabilidade operacional             | M14               |
 | Qualidade/padronização dos registros | M12, M13          |
@@ -470,6 +469,373 @@ Operadores de monitoramento e profissionais de operações/DevOps/SRE que realiz
 * **Abordagem:** análise temática (thematic analysis).
 * **Etapas:** transcrever entrevistas; leitura exploratória; codificação inicial (open coding); agrupar códigos em categorias temáticas; revisar e definir temas finais.
 * **Confiabilidade:** pelo menos **2 codificadores** independentes codificarão uma amostra (20–30%) dos dados para medir **acordo inter-avaliador** (Cohen’s kappa). Em caso de divergência, discutir até consenso e refinar código.
-* **Apresentação:** extrair citações representativas (anonimizadas) para ilustrar temas; relacionar temas às métricas quantitativas (triangulação).
 
+## **13. Avaliação de validade (ameaças e mitigação)**
+
+### **13.1 Validade de conclusão**
+
+**Ameaças identificadas:**
+
+* **Baixo poder estatístico:** amostra pequena (n=12-18) pode não detectar diferenças reais entre tratamentos.
+* **Violação de normalidade:** métricas de tempo podem apresentar distribuição assimétrica.
+* **Variabilidade de medida:** instrumentação manual pode gerar inconsistências nos registros.
+* **Erro tipo I (falso positivo):** múltiplas comparações aumentam chance de encontrar diferenças por acaso.
+
+**Estratégias de mitigação:**
+
+* Usar testes não paramétricos (Wilcoxon, Mann-Whitney) quando normalidade não for atendida.
+* Calcular e reportar tamanhos de efeito (Cohen's d, r) além de p-values.
+* Aplicar correção de Bonferroni ou Holm quando realizar múltiplas comparações.
+* Realizar análise de sensibilidade com diferentes métodos estatísticos.
+* Documentar limitações de poder e interpretar resultados com cautela apropriada.
+
+
+### **13.2 Validade interna**
+
+**Ameaças identificadas:**
+
+* **História:** eventos externos durante sessões (quedas de internet, interrupções) podem afetar desempenho.
+* **Maturação:** participantes podem melhorar com prática ao longo das sessões.
+* **Seleção:** viés de amostra por conveniência (só estudantes/voluntários disponíveis).
+* **Mortalidade experimental:** desistência de participantes no meio do estudo.
+* **Instrumentação:** mudanças na forma de coletar métricas entre sessões.
+* **Efeito de ordem:** cansaço ou aprendizado podem influenciar condições posteriores.
+
+**Estratégias de controle:**
+
+* **Randomização da ordem** de tratamentos e cargas para distribuir efeitos de aprendizado.
+* **Contrabalanceamento** para garantir que condições não apareçam sempre na mesma posição.
+* **Blocos por experiência** para controlar diferenças individuais.
+* **Ambiente controlado:** mesma infraestrutura, horários similares, sem interrupções planejadas.
+* **Protocolo fixo:** checklist rigoroso para manter instrumentação consistente.
+* **Sessões curtas:** limitar duração para reduzir fadiga.
+* **Período de descanso:** intervalo mínimo entre condições para recuperação.
+* **Registrar desistências** e analisar se há padrão sistemático.
+
+
+### **13.3 Validade de constructo**
+
+**Ameaças identificadas:**
+
+* **Operacionalização inadequada:** métricas podem não capturar totalmente os conceitos.
+* **Mono-method bias:** depender só de uma métrica por conceito pode distorcer conclusões.
+
+**Estratégias de redução:**
+
+* **Validação de instrumentos:** piloto testa se métricas capturam o esperado.
+* **Definições operacionais claras:** documentar exatamente o que cada métrica mede e como é calculada.
+
+### **13.4 Validade externa**
+
+**Ameaças identificadas:**
+
+* **População restrita:** estudantes/laboratório podem não representar operadores reais de produção.
+* **Logs simulados:** não cobrem toda complexidade e variedade de erros reais.
+* **Ambiente artificial:** condições controladas diferem de ambientes empresariais caóticos.
+* **Escala limitada:** volumes de log testados são menores que sistemas corporativos.
+* **Interação de seleção com tratamento:** resultados podem valer só para pessoas com perfil similar aos participantes.
+
+**Limites de generalização:**
+
+* Resultados aplicam-se principalmente a contextos de pequeno/médio porte com logs estruturados similares.
+* **Não generaliza diretamente** para: sistemas legados complexos, ambientes de altíssima criticidade, logs não estruturados, equipes grandes com processos maduros.
+* Válido como **prova de conceito** e estimativa inicial de viabilidade para automação básica.
+
+**Estratégias para melhorar generalização (futuro):**
+
+* Replicar em ambiente real com operadores profissionais.
+* Incluir logs reais anonimizados de sistemas diversos.
+
+
+### **13.5 Resumo das principais ameaças e estratégias de mitigação**
+
+| Tipo de validade     | Ameaça crítica                                | Estratégia de mitigação principal                                    |
+| -------------------- | --------------------------------------------- | -------------------------------------------------------------------- |
+| **Conclusão**        | Baixo poder estatístico                       | Testes não paramétricos + tamanho de efeito + análise de sensibilidade |
+| **Externa**          | Logs simulados vs reais                       | Manter simulação realista; testar com logs reais em fase posterior   |
+
+
+## **14. Ética, privacidade e conformidade**
+
+### **14.1 Questões éticas (uso de sujeitos, incentivos, etc.)**
+
+**Questões identificadas:**
+
+* **Participação de estudantes:** risco de coerção implícita se houver relação professor-aluno.
+* **Pressão para desempenho:** participantes podem sentir que precisam "ir bem" no teste.
+* **Risco mínimo:** exposição a cansaço visual/mental durante análise de logs.
+* **Incentivos:** se oferecidos, podem influenciar motivação artificialmente.
+* **Uso de tempo:** participantes dedicam ~2-3h sem benefício direto imediato.
+
+**Como serão tratadas:**
+
+* **Voluntariedade estrita:** deixar claro que participação é opcional, sem impacto em notas ou avaliações.
+* **Sem punição:** reforçar que não há resposta "errada" e que podem desistir a qualquer momento.
+* **Descanso:** garantir intervalos adequados e limitar duração das sessões.
+* **Incentivo proporcional:** se oferecido, será simbólico (certificado de participação, pequeno vale/lanche) para não coagir.
+* **Transparência:** explicar claramente que o objetivo é avaliar a ferramenta, não a pessoa.
+* **Debriefing:** ao final, explicar resultados gerais e agradecer contribuição.
+
+### **14.2 Consentimento informado**
+
+**Processo:**
+
+1. **Antes da sessão:** enviar por e-mail documento explicativo (1-2 páginas) contendo:
+   * Objetivo do estudo.
+   * O que será feito (tarefas, duração, gravação se aplicável).
+   * Riscos mínimos (cansaço) e benefícios (contribuição acadêmica).
+   * Direito de recusar ou desistir sem justificativa.
+   * Como os dados serão usados e protegidos.
+   * Contato do responsável para dúvidas.
+
+2. **No início da sessão presencial:**
+   * Revisão verbal dos pontos principais.
+   * Espaço para perguntas.
+
+### **14.3 Privacidade e proteção de dados**
+
+**Dados coletados:**
+
+* **Identificação:** nome, e-mail, idade.
+* **Perfil:** nível de experiência com logs, formação.
+
+### **14.4 Aprovações necessárias (comitê de ética, jurídico, DPO, etc.)**
+
+| Órgão/Pessoa                  | Necessidade                                      | Status planejado                     |
+| ----------------------------- | ------------------------------------------------ | ------------------------------------ |
+| **Orientador acadêmico**      | Aprovar desenho e plano                          | Revisão em reunião semanal           |
+| **Coordenação do curso**      | Autorizar uso de laboratório e estudantes        | Ofício formal solicitando autorização |
+
+
+## **15. Recursos, infraestrutura e orçamento**
+
+### **15.1 Recursos humanos e papéis**
+
+| Nome/Papel                                    | Responsabilidades                                                                 |
+| --------------------------------------------- | --------------------------------------------------------------------------------- |
+| **Pedro Oliveira (autor/pesquisador principal)** | Desenho, desenvolvimento do robô, coleta de dados, análise, redação            |
+| **Orientador(a) acadêmico(a)**                | Revisão metodológica, aprovação de mudanças, mentoria                             |
+
+
+### **15.2 Infraestrutura técnica necessária**
+
+* **Servidores de aplicação simulados:**
+  * 2-3 máquinas virtuais (ou containers Docker) rodando aplicação mock que gera logs.
+  * Sistema operacional: Linux (Ubuntu 22.04 LTS recomendado).
+  * Acesso: rede interna do laboratório.
+
+* **Ferramentas de automação:**
+  * **Python 3.10+** com bibliotecas: `pandas`, `requests`, `logging`, `schedule`, `pytest`.
+  * **Robot Framework**.
+  * **N8N e Power Automate Desktop**.
+
+* **APIs externas simuladas/reais:**
+  * Conta gratuita **Jira Cloud** ou **ServiceNow Developer Instance** para testes de integração.
+
+* **Repositório de código:**
+  * GitHub privado ou GitLab institucional para scripts e documentação.
+
+
+### **15.3 Materiais e insumos**
+
+* **Licenças de software:** todas ferramentas utilizadas são gratuitas ou já disponíveis no laboratório (nenhum custo adicional).
+* **Impressões:** ~50 páginas (TCLEs, instruções, questionários de backup) — custo: R$ 10.
+* **Computadores:** 3-4 máquinas do laboratório (já disponíveis) e notebook pessoal.
+* **Conectividade:** internet estável do laboratório (já existente) e internet residencial.
+
+### **15.4 Orçamento e custos estimados**
+
+| Item                          | Custo (R$) | Fonte                          |
+| ----------------------------- | ---------- | ------------------------------ |
+| Infraestrutura laboratorial   | 0          | Já disponível (universidade) e notebook pessoal  |
+| Licenças de software          | 0          | Ferramentas gratuitas/open source |
+| Materiais de impressão        | 10         | Bolso do pesquisador           |
+| API's pagas de sistemas de gerenciamnto| 180| Preços API's pagas|
+| Suporte técnico especializado | 0          | Voluntário do laboratório      |
+| **TOTAL**                     | **R$ 190** | Autofinanciado                 |
+
+**Observação:** orçamento mínimo viável para contexto acadêmico. Nenhum financiamento externo necessário.
+
+## **16. Cronograma, marcos e riscos operacionais**
+
+### **16.1 Macrocronograma (até o início da execução)**
+
+| Atividade                                |
+| ---------------------------------------- |
+| Finalização do plano de experimento     |
+| Revisão do plano pelo orientador        |
+| Desenvolvimento/ajuste do robô (paralelamente) |
+| Configuração da infraestrutura técnica  |
+| Ajustes pós-piloto                      |
+
+**Marcos principais:**
+* **M1:** Plano aprovado pelo orientador
+* **M3:** Infraestrutura pronta e testada 
+* **M4:** Piloto concluído e ajustes feitos 
+* **M5:** Go para execução formal 
+
+---
+
+### **16.2 Dependências entre atividades**
+
+```
+Finalização plano → Revisão orientador → Submissão CEP
+                                            ↓
+                           Aprovação CEP ← (bloqueante para piloto/execução)
+                                            ↓
+Desenvolvimento robô (paralelo) → Config infraestrutura → Preparação materiais
+                                            ↓
+                                    Recrutamento
+                                            ↓
+                           Aprovação CEP + Materiais prontos → Treinamento
+                                            ↓
+                                         Piloto
+                                            ↓
+                                    Ajustes pós-piloto
+                                            ↓
+                                  **Início execução formal**
+```
+
+
+### **16.3 Riscos operacionais e plano de contingência**
+
+| Risco                                   | Probabilidade | Impacto | Mitigação / Contingência                                  |
+| --------------------------------------- | ------------- | ------- | --------------------------------------------------------- |
+| Infraestrutura do laboratório indisponível | Baixa         | Alto    | Testar antecipadamente; ter plano B (VMs na nuvem)        |
+| Poucos voluntários (< 12 participantes) | Média         | Médio   | Ampliar divulgação; oferecer incentivo; aceitar n mínimo=10 |
+| Robô apresentar bugs críticos no piloto | Alta          | Médio   | Alocar buffer de 3 dias para correções; simplificar funcionalidades se necessário |
+| APIs externas (Jira/ServiceNow) fora do ar | Média         | Médio   | Usar mock de API local como fallback                       |
+| Desistência de participantes no meio    | Baixa         | Baixo   | Recrutar 20% a mais; ter protocolo para substituições     |
+| Orientador indisponível em momento crítico | Baixa         | Médio   | Agendar revisões com antecedência; ter canal assíncrono (e-mail) |
+
+**Plano de contingência geral:**
+* **Se atraso > 2 semanas:** renegociar cronograma com orientador; potencialmente reduzir escopo (ex.: menos níveis de carga testados).
+* **Se n < 10:** redefinir análise para descritiva exploratória, sem inferência estatística forte; documentar como limitação.
+
+
+## **17. Governança do experimento**
+
+### **17.1 Papéis e responsabilidades formais**
+
+| Papel                     | Pessoa(s)                | Decide | Executa | Revisa | Informa | Responsabilidades principais                                      |
+| ------------------------- | ------------------------ | :----: | :-----: | :----: | :-----: | ----------------------------------------------------------------- |
+| **Pesquisador Principal** | Pedro Oliveira           | Sim      | Sim       | -      | -       | Conduzir experimento, coletar dados, analisar, reportar          |
+| **Orientador**            | Professor da disciplina de TCC 1          | Sim      | -       | Sim      | -       | Aprovar plano, revisar metodologia, validar conclusões            |
+
+**Fluxo de decisão:**
+* Mudanças metodológicas **significativas** (ex.: alterar desenho, métricas principais) → aprovação do orientador obrigatória.
+* Mudanças **operacionais** (ex.: ajustar script de coleta, reagendar sessão) → decisão do pesquisador principal, com comunicação ao orientador.
+* Questões **éticas** emergentes → escalar imediatamente para orientador e CEP.
+
+---
+
+### **17.2 Ritos de acompanhamento pré-execução**
+
+| Rito                              | Frequência      | Participantes                | Objetivo                                              |
+| --------------------------------- | --------------- | ---------------------------- | ----------------------------------------------------- |
+| Reunião de orientação             | Semanal         | Pedro + Orientador           | Revisar progresso, decisões, próximos passos          |
+| Checkpoint de infraestrutura      | Única (10/12)   | Pedro + Técnico de lab       | Validar que ambiente está funcional                   |
+| Revisão de materiais (formulários)| Única (12/12)   | Pedro + Orientador           | Aprovar TCLEs, questionários, instruções              |
+| Reunião pré-piloto                | Única (08/01)   | Pedro + Orientador           | Checklist final antes de iniciar piloto               |
+| Debriefing pós-piloto             | Única (13/01)   | Pedro + Orientador + Técnico | Avaliar piloto, decidir ajustes necessários           |
+| Go/No-Go para execução formal     | Única (15/01)   | Pedro + Orientador           | Decisão final: iniciar coleta formal ou adiar         |
+
+**Comunicação assíncrona:** e-mail semanal de status (sextas-feiras) relatando: o que foi feito, o que está bloqueado, próximos passos.
+
+---
+
+### **17.3 Processo de controle de mudanças no plano**
+
+**Classificação de mudanças:**
+
+* **Menor:** ajustes de redação, correções de typos, pequenos ajustes operacionais (ex.: horário de sessão).
+  * **Processo:** pesquisador principal faz diretamente, registra em histórico de revisão (v1.2, v1.3...), informa orientador.
+
+* **Moderada:** mudança de ferramenta específica (ex.: trocar Jira por mock), ajuste de métrica secundária, redução de número de sessões.
+  * **Processo:** propor ao orientador por e-mail, aguardar aprovação (prazo: 3 dias úteis), registrar mudança formal no documento.
+
+* **Maior:** alteração do desenho experimental, mudança de variável independente principal, troca de método estatístico central.
+  * **Processo:** reunião formal com orientador, elaborar justificativa escrita, re-submeter ao CEP se impactar aspectos éticos, atualizar versão principal do plano (ex.: v2.0).
+
+**Registro de mudanças:**
+* Toda mudança documentada em seção "Histórico de Revisão" (topo do documento) com: data, versão, descrição, responsável.
+* Mudanças maiores geram novo arquivo versionado no repositório (plano_experimento_v2.0.pdf).
+
+---
+
+## **18. Plano de documentação e reprodutibilidade**
+
+### **18.1 Repositórios e convenções de nomeação**
+
+**Repositório principal:**
+* **Plataforma:** GitHub privado (ou GitLab institucional)
+* **URL:** `github.com/pedroliveira/tcc-rpa-logs` (exemplo)
+* **Estrutura de pastas:**
+
+```
+/tcc-rpa-logs/
+├── /docs/                    # Plano de experimento, TCLEs, manuais
+│   ├── plano_experimento_v1.1.pdf
+│   ├── TCLE_participante.pdf
+│   └── manual_operador.pdf
+├── /src/                     # Código do robô e scripts de análise
+│   ├── /robot/               # Código principal da automação
+│   ├── /log_generator/       # Scripts para gerar logs simulados
+│   └── /analysis/            # Scripts de análise estatística (Python/R)
+├── /data/                    # Dados coletados (NUNCA commitar dados identificáveis)
+│   ├── /raw/                 # Dados brutos (excluído do Git via .gitignore)
+│   ├── /processed/           # Dados pseudoanonimizados e limpos
+│   └── /analysis_output/     # Resultados de análises (gráficos, tabelas)
+├── /instruments/             # Formulários, questionários, checklists
+│   ├── questionario_pre.pdf
+│   ├── questionario_post.pdf
+│   └── checklist_sessao.xlsx
+├── /results/                 # Relatórios, apresentações finais
+└── README.md                 # Visão geral do projeto, como replicar
+```
+
+**Convenções de nomeação de arquivos:**
+
+* **Documentos:** `tipo_descricao_vX.Y.extensão`
+  * Ex.: `plano_experimento_v1.1.pdf`, `TCLE_v1.0.docx`
+
+* **Scripts:** `nome_funcional.py` ou `nome_funcional.R`
+  * Ex.: `collect_logs.py`, `analyze_performance.R`
+
+* **Dados:** `YYYYMMDD_tipo_identificador.csv`
+  * Ex.: `20260116_metrics_session01.csv`, `20260117_interview_P005.txt`
+
+* **Versões de código:** usar Git tags para marcos (`v1.0-piloto`, `v1.1-execucao-formal`)
+
+---
+
+### **18.2 Templates e artefatos padrão**
+
+| Artefato                           | Localização                           | Descrição                                           |
+| ---------------------------------- | ------------------------------------- | --------------------------------------------------- |
+| **TCLE (Word/PDF)**                | `/docs/TCLE_participante.docx`        | Termo de consentimento a ser assinado               |
+| **Questionário pré-experimento**   | `/instruments/questionario_pre.pdf`   | Perfil do participante, experiência                 |
+| **Questionário pós-experimento**   | `/instruments/questionario_post.pdf`  | Satisfação, workload (NASA-TLX curto)               |
+| **Checklist de sessão**            | `/instruments/checklist_sessao.xlsx`  | Lista de verificação para experimentador            |
+| **Script de entrevista**           | `/instruments/roteiro_entrevista.md`  | Perguntas semiestruturadas pós-experimento          |
+| **Template de registro de observação** | `/instruments/researcher_log_template.xlsx` | Tabela para anotar eventos imprevistos             |
+| **Modelo de relatório de análise** | `/results/template_relatorio.docx`    | Estrutura padrão para seções de resultados          |
+
+Todos os templates estarão **versionados no Git** e disponíveis para download antes da primeira sessão.
+
+---
+
+### **18.3 Plano de empacotamento para replicação futura**
+
+**Objetivo:** permitir que outra equipe replique o experimento com mínimo esforço.
+
+**Pacote de replicação incluirá:**
+
+1. **README.md detalhado** com:
+   * Visão geral do experimento (1-2 parágrafos).
+   * Pré-requisitos técnicos (Python 3.10+, bibliotecas, APIs).
+   * Instruções passo-a-passo para: configurar ambiente, gerar logs, executar robô, coletar métricas.
+   * Contato do autor para dúvidas.
+
+2. **Dockerfile ou `requirements.txt`** para reproduzir ambiente de software exat
 
