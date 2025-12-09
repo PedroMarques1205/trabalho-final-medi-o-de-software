@@ -125,7 +125,8 @@ O experimento tem como objetivo **avaliar se a automação robótica (RPA)** é 
  
 # **Tabela completa de métricas (descrição + unidade)**
 
-| Código  | Métrica                              | Descrição                                                 | Unidade               |
+| Código | Métrica                              | Descrição                                                 | Unidade               |
+|--------|----------------------------------------|-------------------------------------------------------------|------------------------|
 | **M1**  | Tempo de detecção                    | Tempo entre o erro ocorrer e o robô detectar              | segundos              |
 | **M2**  | Precisão de detecção                 | Percentual de erros detectados corretamente               | %                     |
 | **M3**  | Taxa de falsos negativos             | Erros que o robô deixou passar                            | % / quantidade        |
@@ -141,6 +142,7 @@ O experimento tem como objetivo **avaliar se a automação robótica (RPA)** é 
 | **M13** | Qualidade dos incidentes registrados | Clareza, completude e precisão                            | nota (1–5)            |
 | **M14** | Estabilidade do robô                 | Quantidade de travamentos e falhas                        | nº de eventos         |
 | **M15** | Sucesso de integração                | Taxa de respostas OK das APIs                             | %                     |
+
 
  
 
